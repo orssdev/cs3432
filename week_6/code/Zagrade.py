@@ -1,0 +1,3 @@
+expr = input()
+
+print(expr)
