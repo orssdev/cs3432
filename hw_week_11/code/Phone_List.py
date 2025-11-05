@@ -1,40 +1,39 @@
 test_cases = int(input())
 
-def check(numbers: list[str]):
-    numbers.sort(key=len)
-    len_numbers = len(numbers)
-    for i in range(len_numbers):
-        for j in range(i + 1, len_numbers):
-            if numbers[i] == numbers[j][:len(numbers[i])]:
-                return True
-    return False
-
-
-
 for _ in range(test_cases):
-    numbers_list = {
-        '0': [],
-        '1': [],
-        '2': [],
-        '3': [],
-        '4': [],
-        '5': [],
-        '6': [],
-        '7': [],
-        '8': [],
-        '9': []
+    sets = {
+        1: set(),
+        2: set(),
+        3: set(),
+        4: set(),
+        5: set(),
+        6: set(),
+        7: set(),
+        8: set(),
+        9: set(),
+        10: set()
     }
     n = int(input())
-
+    numbers = []
+    numbers_len = set()
     for _ in range(n):
         number = input()
-        numbers_list[number[0]].append(number)
-    count = 0
-    for numbers in numbers_list.values():
-        if len(numbers) > 1 and check(numbers):
-            print('NO')
+        numbers.append(number)
+        numbers_len.add(len(number))
+    numbers.sort(key=len)
+    Done = False
+    for number in numbers:
+        for i in numbers_len:
+            if i <= len(number):
+                num = number[:i]
+                if num in sets[i]:
+                    print('NO')
+                    Done = True
+                    break
+                if num == number:
+                    sets[i].add(num)
+        if Done:
             break
-        count += 1
-    
-    if count == len(numbers_list):
+    if not Done:
         print('YES')
+                
